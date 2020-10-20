@@ -1,5 +1,6 @@
 package com.noirix;
 
+import com.noirix.domain.Car;
 import com.noirix.domain.User;
 import com.noirix.util.DatabaseConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -30,5 +31,13 @@ public class SpringContextTester {
         System.out.println(bean.getDriverName());
         System.out.println(bean.getPassword());
         System.out.println(bean.getUrl());
+/*        This is how to check available beans in context*/
+
+//        for (String beanDefinitionName : annotationConfigApplicationContext.getBeanDefinitionNames()) {
+//            System.out.println(beanDefinitionName);
+//        }
+
+        Car generatedCar = annotationConfigApplicationContext.getBean(Car.class);
+        System.out.println(generatedCar);
     }
 }

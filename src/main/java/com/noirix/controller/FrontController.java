@@ -6,7 +6,6 @@ import com.noirix.domain.User;
 import com.noirix.repository.UserRepository;
 import com.noirix.repository.impl.UserRepositoryImpl;
 import org.apache.commons.io.IOUtils;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +15,15 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Collections;
 
+//@Controller
+//@RestController
+
+//@Component
+//@Repository
+//@Service
+//@Controller
+//@RestController
+//@Bean
 public class FrontController extends HttpServlet {
 
     public static final UserRepository userRepository = new UserRepositoryImpl();
