@@ -2,10 +2,12 @@ package com.noirix.controller;
 
 import com.google.gson.Gson;
 import com.noirix.controller.command.Commands;
+import com.noirix.domain.Cars;
 import com.noirix.domain.User;
 import com.noirix.repository.CarsRepository;
 import com.noirix.repository.UserRepository;
 //import com.noirix.repository.impl.CarsREpositoryimpl;
+import com.noirix.repository.impl.CarsRepositoryimpl;
 import com.noirix.repository.impl.UserRepositoryImpl;
 import org.apache.commons.io.IOUtils;
 import javax.servlet.RequestDispatcher;
@@ -29,7 +31,7 @@ import java.util.Collections;
 public class FrontController extends HttpServlet {
 
     public static final UserRepository userRepository = new UserRepositoryImpl();
-    //public static final CarsRepository carsRepository = new CarsREpositoryimpl();
+    public static final CarsRepository carsRepository = new CarsRepositoryimpl();
 
     public FrontController() {
         super();
@@ -85,13 +87,19 @@ public class FrontController extends HttpServlet {
                 String limit = req.getParameter("limit");
 
                 req.setAttribute("users", userRepository.findAll());
+                req.setAttribute("cars", carsRepository.findAll());
                 break;
             //     http://localhost:8080/test/FrontController?command=findById&id=10
             case FIND_BY_ID:
                 String id = req.getParameter("id");
+
                 long userId = Long.parseLong(id);
                 req.setAttribute("users", Collections.singletonList(userRepository.findById(userId)));
                 req.setAttribute("singleUser", userRepository.findById(userId));
+
+                long carsId = Long.parseLong(id);
+                req.setAttribute("cars", Collections.singletonList(carsRepository.findById(carsId)));
+                req.setAttribute("singleCars", carsRepository.findById(carsId));
                 break;
             default:
                 break;
@@ -105,20 +113,36 @@ public class FrontController extends HttpServlet {
             switch (commandName) {
                 case CREATE:
                     String body = IOUtils.toString(req.getInputStream(), Charset.defaultCharset());
+
                     User user = new Gson().fromJson(body, User.class);
                     req.setAttribute("users", Collections.singletonList(userRepository.save(user)));
+
+                    Cars cars = new Gson().fromJson(body, Cars.class);
+                    req.setAttribute("cars", Collections.singletonList(carsRepository.save(cars)));
+
                     break;
                 case UPDATE:
+
                     String updateBody = IOUtils.toString(req.getInputStream(), Charset.defaultCharset());
+
                     User updateUser = new Gson().fromJson(updateBody, User.class);
                     req.setAttribute("users", Collections.singletonList(userRepository.update(updateUser)));
+
+                    Cars updateCars = new Gson().fromJson(updateBody, Cars.class);
+                    req.setAttribute("cars", Collections.singletonList(carsRepository.update(updateCars)));
+
                     break;
                 case DELETE:
                     String id = req.getParameter("id");
-                    long userId = Long.parseLong(id);
-                    userRepository.delete(userRepository.findById(userId));
 
+                    long Id = Long.parseLong(id);
+                    userRepository.delete(userRepository.findById(Id));
                     req.setAttribute("users", userRepository.findAll());
+
+
+                    carsRepository.delete(carsRepository.findById(Id));
+                    req.setAttribute("cars", carsRepository.findAll());
+
                     break;
                 default:
                     break;

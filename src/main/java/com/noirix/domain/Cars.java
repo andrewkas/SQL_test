@@ -7,6 +7,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.util.Objects;
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @Builder
 @Data
@@ -20,4 +22,6 @@ public class Cars {
     private Long user_id;
     private Double price;
     private String color;
+
+
 }
