@@ -1,6 +1,7 @@
 package com.noirix;
 
 import com.noirix.domain.Car;
+import com.noirix.domain.Cars;
 import com.noirix.domain.User;
 import com.noirix.repository.UserRepository;
 import com.noirix.util.DatabaseConfig;
@@ -40,7 +41,7 @@ public class SpringContextTester {
 //            System.out.println(beanDefinitionName);
 //        }
 
-        Car generatedCar = annotationConfigApplicationContext.getBean(Car.class);
+        Cars generatedCar = annotationConfigApplicationContext.getBean(Cars.class);
         System.out.println(generatedCar);
 
 

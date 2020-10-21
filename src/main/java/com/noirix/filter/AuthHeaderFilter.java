@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AuthHeaderFilter implements Filter {
@@ -33,9 +34,12 @@ public class AuthHeaderFilter implements Filter {
         String authHeader = castedRequest.getHeader("X-Auth-Token");
         if (StringUtils.isNotBlank(authHeader)) { //for future JWT Token Auth
             System.out.println("Header was found with payload: " + authHeader);
+            chain.doFilter(request, response);
         } else {
             System.out.println("Header was not found!");
-        }
-        chain.doFilter(request, response);
+
+      //  ((HttpServletResponse) response).sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"fuck");
+        chain.doFilter(request, response);}
     }
-}
+
+    }

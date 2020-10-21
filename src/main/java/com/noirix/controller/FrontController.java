@@ -3,7 +3,9 @@ package com.noirix.controller;
 import com.google.gson.Gson;
 import com.noirix.controller.command.Commands;
 import com.noirix.domain.User;
+import com.noirix.repository.CarsRepository;
 import com.noirix.repository.UserRepository;
+//import com.noirix.repository.impl.CarsREpositoryimpl;
 import com.noirix.repository.impl.UserRepositoryImpl;
 import org.apache.commons.io.IOUtils;
 import javax.servlet.RequestDispatcher;
@@ -27,6 +29,7 @@ import java.util.Collections;
 public class FrontController extends HttpServlet {
 
     public static final UserRepository userRepository = new UserRepositoryImpl();
+    //public static final CarsRepository carsRepository = new CarsREpositoryimpl();
 
     public FrontController() {
         super();

@@ -1,6 +1,7 @@
 package com.noirix.repository.impl;
 
 import com.noirix.domain.Gender;
+
 import com.noirix.domain.User;
 import com.noirix.exception.EntityNotFoundException;
 import com.noirix.repository.UserRepository;
