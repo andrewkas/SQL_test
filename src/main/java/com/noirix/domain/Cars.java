@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.util.Objects;
 @Setter
 @Getter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
