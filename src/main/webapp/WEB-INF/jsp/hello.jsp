@@ -38,23 +38,20 @@
         </c:forEach>
     </table>
 </div>
-<div>
+<!--div>
     ${singleUser}
-</div>
+</div-->
 </body>
 <body>
-<div>
-    <h1>System Cars</h1>
-</div>
 <div>
     <table>
         <tr>
             <td>Cars Id</td>
-            <td>Cars Name</td>
-            <td>Cars Creation_year</td>
-            <td>Cars User_Id</td>
-            <td>Cars Price</td>
-            <td>Cars Color</td>
+            <td>Model</td>
+            <td>Creation_year</td>
+            <td>User_Id</td>
+            <td>Price</td>
+            <td>Color</td>
 
         </tr>
         <c:forEach var="cars" items="${cars}">
@@ -66,14 +63,13 @@
                 <td>${cars.price}</td>
                 <td>${cars.color}</td>
 
-                <td><button>Edit</button></td>
-                <td><button>Delete</button></td>
+
             </tr>
         </c:forEach>
     </table>
 </div>
-<div>
+<!--div>
     ${singleCars}
-</div>
+</div-->
 </body>
 </html>

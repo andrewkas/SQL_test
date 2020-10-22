@@ -45,7 +45,8 @@ public class CarsRepositoryimpl implements CarsRepository {
                     reader.getProperty(DATABASE_LOGIN),
                     reader.getProperty(DATABASE_PASSWORD));
             statement = connection.prepareStatement(findByIdQuery);
-            PreparedStatement lastInsertId=connection.prepareStatement("SELECT currval('m_cars_id_seq') as last_insert_id;");
+            PreparedStatement lastInsertId=
+                    connection.prepareStatement("SELECT currval('m_cars_id_seq') as last_insert_id;");
             statement.setString(1, cars.getModel());
             statement.setInt(2, cars.getCreation_year());
             statement.setLong(3,cars.getUser_id());
@@ -115,7 +116,8 @@ public class CarsRepositoryimpl implements CarsRepository {
 
     @Override
     public Cars findById(Long key) {
-        final String findByIdQuery = "select * from m_cars where id = ?";
+        final String findByIdQuery =
+                "select * from m_cars join m_users on m_cars.user_id=m_users.id where user_id = ?";
 
         Connection connection;
         PreparedStatement statement;

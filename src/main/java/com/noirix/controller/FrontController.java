@@ -74,6 +74,7 @@ public class FrontController extends HttpServlet {
                 dispatcher.forward(req, resp);
             }
         }
+
     }
 
     private void resolveGetRequestCommands(HttpServletRequest req, Commands commandName) {
@@ -97,9 +98,9 @@ public class FrontController extends HttpServlet {
                 req.setAttribute("users", Collections.singletonList(userRepository.findById(userId)));
                 req.setAttribute("singleUser", userRepository.findById(userId));
 
-                long carsId = Long.parseLong(id);
-                req.setAttribute("cars", Collections.singletonList(carsRepository.findById(carsId)));
-                req.setAttribute("singleCars", carsRepository.findById(carsId));
+              //  long carsId = Long.parseLong(id);
+                req.setAttribute("cars", Collections.singletonList(carsRepository.findById(userId)));
+                req.setAttribute("singleCars", carsRepository.findById(userId));
                 break;
             default:
                 break;
