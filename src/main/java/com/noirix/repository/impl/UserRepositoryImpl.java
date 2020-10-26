@@ -231,7 +231,7 @@ public class UserRepositoryImpl implements UserRepository {
 
         try {
             connection = DriverManager.getConnection(reader.getProperty(DATABASE_URL), reader.getProperty(DATABASE_LOGIN), reader.getProperty(DATABASE_PASSWORD));
-            statement = connection.prepareStatement(findByIdQuery);
+            statement =connection.prepareStatement("delete from m_users where id=?");
             statement.setLong(1, user.getId());
 
             int deletedRows = statement.executeUpdate();

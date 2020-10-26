@@ -62,6 +62,7 @@
                 <td>${cars.user_id}</td>
                 <td>${cars.price}</td>
                 <td>${cars.color}</td>
+                <td><button onclick="location.href='/'">Delete</button></td>
 
 
             </tr>

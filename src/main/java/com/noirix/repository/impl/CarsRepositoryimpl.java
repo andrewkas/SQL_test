@@ -211,8 +211,9 @@ public class CarsRepositoryimpl implements CarsRepository {
             connection = DriverManager.getConnection(reader.getProperty(DATABASE_URL),
                     reader.getProperty(DATABASE_LOGIN),
                     reader.getProperty(DATABASE_PASSWORD));
-            statement = connection.prepareStatement(findByIdQuery);
-            statement.setLong(1, cars.getId());
+            statement =connection.prepareStatement("delete from m_cars where model=?");
+            statement.setString(1, cars.getModel());
+
 
             int deletedRows = statement.executeUpdate();
             return (long)deletedRows;
