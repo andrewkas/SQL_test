@@ -2,39 +2,62 @@ package com.noirix;
 
 import com.noirix.domain.Car;
 import com.noirix.domain.Cars;
+import com.noirix.domain.Gender;
 import com.noirix.domain.User;
 import com.noirix.repository.UserRepository;
+import com.noirix.service.CarsService;
 import com.noirix.util.DatabaseConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.xml.crypto.Data;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 public class SpringContextTester {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("classpath:application-context.xml");
+  //     ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("classpath:application-context.xml");
 
-        User user1 = (User)classPathXmlApplicationContext.getBean("user1");
-        User user2 = (User)classPathXmlApplicationContext.getBean("user2");
+  //     User user1 = (User)classPathXmlApplicationContext.getBean("user1");
+  //     User user2 = (User)classPathXmlApplicationContext.getBean("user2");
 
-        System.out.println(user1.getId());
-        System.out.println(user1.getName());
-        System.out.println(user1.getSurname());
+  //     System.out.println(user1.getId());
+  //     System.out.println(user1.getName());
+  //     System.out.println(user1.getSurname());
+  //     System.out.println(user1.getUserCar());
 
-        System.out.println(user2.getId());
-        System.out.println(user2.getName());
-        System.out.println(user2.getSurname());
+  //     System.out.println(user2.getId());
+  //     System.out.println(user2.getName());
+  //     System.out.println(user2.getSurname());
 
 
-        System.out.println("******************************************");
+  //     System.out.println("******************************************");
 
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext("com.noirix");
 
-        DatabaseConfig bean = annotationConfigApplicationContext.getBean(DatabaseConfig.class);
-        System.out.println(bean.getLogin());
-        System.out.println(bean.getDriverName());
-        System.out.println(bean.getPassword());
-        System.out.println(bean.getUrl());
+        CarsService carsService = annotationConfigApplicationContext.getBean(CarsService.class);
+
+        System.out.println(carsService.findAll().stream().map(Cars::getModel).collect(Collectors.joining(", ")));
+
+        System.out.println(carsService.findById(17L));
+        System.out.println(carsService.search("Honda"));
+        Cars carsForSave =
+                Cars.builder()
+                        .model("Tesla")
+                        .creationYear(2017)
+                        .userId(1L)
+                        .price(120000.0)
+                        .color("red")
+                        .build();
+
+        System.out.println(carsService.save(carsForSave));
+
+ //       DatabaseConfig bean = annotationConfigApplicationContext.getBean(DatabaseConfig.class);
+ //       System.out.println(bean.getLogin());
+ //       System.out.println(bean.getDriverName());
+ //       System.out.println(bean.getPassword());
+ //       System.out.println(bean.getUrl());
 /*        This is how to check available beans in context*/
 
 //        for (String beanDefinitionName : annotationConfigApplicationContext.getBeanDefinitionNames()) {

@@ -1,5 +1,6 @@
 package com.noirix.repository.impl;
 
+import com.noirix.domain.Car;
 import com.noirix.domain.Cars;
 import com.noirix.domain.Gender;
 import com.noirix.domain.User;
@@ -12,22 +13,50 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.noirix.repository.CarsColumns.*;
 import static com.noirix.util.DatabasePropertiesReader.*;
 
 public class CarsRepositoryimpl implements CarsRepository {
     public static final DatabasePropertiesReader reader = DatabasePropertiesReader.getInstance();
 
-    private static final String ID = "id";
-    private static final String MODEL = "model";
-    private static final String CREATION_YEAR = "creation_year";
-    private static final String USER_ID = "user_id";
-    private static final String PRICE = "price";
-    private static final String COLOR = "color";
 
     @Override
     public List<Cars> search(String query) {
-        return null;
+        List<Cars> result = new ArrayList<>();
+        final String findByQuery = "select * from m_cars where model like ?";
+
+        Connection connection;
+        PreparedStatement statement;
+        ResultSet rs;
+
+        try {
+            Class.forName(reader.getProperty(DATABASE_DRIVER_NAME));
+        } catch (ClassNotFoundException e) {
+            System.err.println("JDBC Driver Cannot be loaded!");
+            throw new RuntimeException("JDBC Driver Cannot be loaded!");
+        }
+
+        try {
+            connection = DriverManager.getConnection(reader.getProperty(DATABASE_URL),
+                    reader.getProperty(DATABASE_LOGIN),
+                    reader.getProperty(DATABASE_PASSWORD));
+            statement = connection.prepareStatement(findByQuery);
+            statement.setString(1, query);
+
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                result.add(parseResultSet(rs));
+                return result;
+            } else {
+                throw new EntityNotFoundException("Cars with Model:" + query + "not found");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException("SQL Issues!");
+        }
     }
+
 
     @Override
     public Cars save(Cars cars) {
@@ -47,8 +76,8 @@ public class CarsRepositoryimpl implements CarsRepository {
             statement = connection.prepareStatement(findByIdQuery);
             PreparedStatement lastInsertId=connection.prepareStatement("SELECT currval('m_cars_id_seq') as last_insert_id;");
             statement.setString(1, cars.getModel());
-            statement.setInt(2, cars.getCreation_year());
-            statement.setLong(3,cars.getUser_id());
+            statement.setInt(2, cars.getCreationYear());
+            statement.setLong(3,cars.getUserId());
             statement.setDouble(4, cars.getPrice());
             statement.setString(5,cars.getColor());
 
@@ -105,8 +134,8 @@ public class CarsRepositoryimpl implements CarsRepository {
         Cars cars = new Cars();
         cars.setId(rs.getLong(ID));
         cars.setModel(rs.getString(MODEL));
-        cars.setCreation_year(rs.getInt(CREATION_YEAR));
-        cars.setUser_id(rs.getLong(USER_ID));
+        cars.setCreationYear(rs.getInt(CREATION_YEAR));
+        cars.setUserId(rs.getLong(USER_ID));
         cars.setPrice(rs.getDouble(PRICE));
         cars.setColor(rs.getString(COLOR));
 
@@ -180,8 +209,8 @@ public class CarsRepositoryimpl implements CarsRepository {
                     reader.getProperty(DATABASE_PASSWORD));
             statement = connection.prepareStatement(findByIdQuery);
             statement.setString(1, cars.getModel());
-            statement.setInt(2, cars.getCreation_year());
-            statement.setLong(3,cars.getUser_id());
+            statement.setInt(2, cars.getCreationYear());
+            statement.setLong(3,cars.getUserId());
             statement.setDouble(4, cars.getPrice());
             statement.setString(5,cars.getColor());
 

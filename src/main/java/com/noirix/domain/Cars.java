@@ -19,8 +19,8 @@ import java.util.Objects;
 public class Cars {
     private Long id;
     private String model;
-    private Integer creation_year;
-    private Long user_id;
+    private Integer creationYear;
+    private Long userId;
     private Double price;
     private String color;
 
