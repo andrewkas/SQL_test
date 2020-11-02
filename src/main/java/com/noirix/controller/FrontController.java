@@ -62,7 +62,7 @@ public class FrontController extends HttpServlet {
 
         Commands commandName = Commands.findByCommandName(req.getParameter("command"));
         try {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/hello");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/bye");
             if (dispatcher != null) {
                 resolveGetRequestCommands(req, commandName);
                 dispatcher.forward(req, resp);
@@ -87,20 +87,24 @@ public class FrontController extends HttpServlet {
                 String page = req.getParameter("page");
                 String limit = req.getParameter("limit");
 
-                req.setAttribute("users", userRepository.findAll());
+             //   req.setAttribute("users", userRepository.findAll());
                 req.setAttribute("cars", carsRepository.findAll());
                 break;
             //     http://localhost:8080/test/FrontController?command=findById&id=10
             case FIND_BY_ID:
                 String id = req.getParameter("id");
 
-                long userId = Long.parseLong(id);
-                req.setAttribute("users", Collections.singletonList(userRepository.findById(userId)));
-                req.setAttribute("singleUser", userRepository.findById(userId));
+               // long userId = Long.parseLong(id);
+               // req.setAttribute("users", Collections.singletonList(userRepository.findById(userId)));
+               // req.setAttribute("singleUser", userRepository.findById(userId));
 
-              //  long carsId = Long.parseLong(id);
-                req.setAttribute("cars", Collections.singletonList(carsRepository.findById(userId)));
-                req.setAttribute("singleCars", carsRepository.findById(userId));
+                long carsId = Long.parseLong(id);
+                req.setAttribute("cars", Collections.singletonList(carsRepository.findById(carsId)));
+                req.setAttribute("singleCars", carsRepository.findById(carsId));
+                break;
+            case SEARCH:
+                String model = req.getParameter("model");
+                req.setAttribute("cars",carsRepository.search(model));
                 break;
             default:
                 break;
@@ -115,8 +119,8 @@ public class FrontController extends HttpServlet {
                 case CREATE:
                     String body = IOUtils.toString(req.getInputStream(), Charset.defaultCharset());
 
-                    User user = new Gson().fromJson(body, User.class);
-                    req.setAttribute("users", Collections.singletonList(userRepository.save(user)));
+                 //  User user = new Gson().fromJson(body, User.class);
+                 //  req.setAttribute("users", Collections.singletonList(userRepository.save(user)));
 
                     Cars cars = new Gson().fromJson(body, Cars.class);
                     req.setAttribute("cars", Collections.singletonList(carsRepository.save(cars)));
@@ -126,8 +130,8 @@ public class FrontController extends HttpServlet {
 
                     String updateBody = IOUtils.toString(req.getInputStream(), Charset.defaultCharset());
 
-                    User updateUser = new Gson().fromJson(updateBody, User.class);
-                    req.setAttribute("users", Collections.singletonList(userRepository.update(updateUser)));
+                  //  User updateUser = new Gson().fromJson(updateBody, User.class);
+                  //  req.setAttribute("users", Collections.singletonList(userRepository.update(updateUser)));
 
                     Cars updateCars = new Gson().fromJson(updateBody, Cars.class);
                     req.setAttribute("cars", Collections.singletonList(carsRepository.update(updateCars)));
@@ -137,8 +141,8 @@ public class FrontController extends HttpServlet {
                     String id = req.getParameter("id");
 
                     long Id = Long.parseLong(id);
-                    userRepository.delete(userRepository.findById(Id));
-                    req.setAttribute("users", userRepository.findAll());
+                 //   userRepository.delete(userRepository.findById(Id));
+                 //   req.setAttribute("users", userRepository.findAll());
 
 
                     carsRepository.delete(carsRepository.findById(Id));

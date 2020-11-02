@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 @AllArgsConstructor
 public enum Commands {
+    SEARCH("search"),
     FIND_BY_ID("findById"),
     FIND_ALL("findAll"),
     CREATE("create"),

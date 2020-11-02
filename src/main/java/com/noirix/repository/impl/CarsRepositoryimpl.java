@@ -26,8 +26,43 @@ public class CarsRepositoryimpl implements CarsRepository {
 
     @Override
     public List<Cars> search(String query) {
-        return null;
+        List<Cars> result = new ArrayList<>();
+        final String findByIdQuery = "select * from m_cars where model like ?";
+
+        Connection connection;
+        PreparedStatement statement;
+        ResultSet rs;
+
+        try {
+            Class.forName(reader.getProperty(DATABASE_DRIVER_NAME));
+        } catch (ClassNotFoundException e) {
+            System.err.println("JDBC Driver Cannot be loaded!");
+            throw new RuntimeException("JDBC Driver Cannot be loaded!");
+        }
+
+        try {
+            connection = DriverManager.getConnection(reader.getProperty(DATABASE_URL),
+                    reader.getProperty(DATABASE_LOGIN),
+                    reader.getProperty(DATABASE_PASSWORD));
+            statement = connection.prepareStatement(findByIdQuery);
+            statement.setString(1, query);
+
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                result.add(parseResultSet(rs));
+                return result;
+            } else {
+                throw new EntityNotFoundException("Cars with Model:" + query + "not found");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException("SQL Issues!");
+        }
     }
+
+
+
 
     @Override
     public Cars save(Cars cars) {
@@ -115,7 +150,7 @@ public class CarsRepositoryimpl implements CarsRepository {
 
     @Override
     public Cars findById(Long key) {
-        final String findByIdQuery = "select * from m_cars join m_users on m_cars.user_id=m_users.id where m_users.id = ?";
+        final String findByIdQuery = "select * from m_cars where id = ?";
 
         Connection connection;
         PreparedStatement statement;
@@ -211,8 +246,8 @@ public class CarsRepositoryimpl implements CarsRepository {
             connection = DriverManager.getConnection(reader.getProperty(DATABASE_URL),
                     reader.getProperty(DATABASE_LOGIN),
                     reader.getProperty(DATABASE_PASSWORD));
-            statement =connection.prepareStatement("delete from m_cars where model=?");
-            statement.setString(1, cars.getModel());
+            statement =connection.prepareStatement(findByIdQuery);
+            statement.setLong(1, cars.getId());
 
 
             int deletedRows = statement.executeUpdate();
