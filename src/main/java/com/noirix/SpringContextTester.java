@@ -1,18 +1,12 @@
 package com.noirix;
 
-import com.noirix.domain.Car;
+import com.noirix.aspect.LoggingAspect;
 import com.noirix.domain.Cars;
-import com.noirix.domain.Gender;
 import com.noirix.domain.User;
 import com.noirix.repository.UserRepository;
 import com.noirix.service.CarsService;
-import com.noirix.util.DatabaseConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.xml.crypto.Data;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 public class SpringContextTester {
@@ -41,17 +35,19 @@ public class SpringContextTester {
         System.out.println(carsService.findAll().stream().map(Cars::getModel).collect(Collectors.joining(", ")));
 
         System.out.println(carsService.findById(17L));
+        System.out.println(carsService.findById(8L));
         System.out.println(carsService.search("Honda"));
-        Cars carsForSave =
-                Cars.builder()
-                        .model("Tesla")
-                        .creationYear(2017)
-                        .userId(1L)
-                        .price(120000.0)
-                        .color("red")
-                        .build();
-
-        System.out.println(carsService.save(carsForSave));
+        System.out.println(carsService.search("Tesla"));
+       // Cars carsForSave =
+       //         Cars.builder()
+       //                 .model("Tesla")
+       //                 .creationYear(2017)
+       //                 .userId(1L)
+       //                 .price(120000.0)
+       //                 .color("red")
+       //                 .build();
+//
+       // System.out.println(carsService.save(carsForSave));
 
  //       DatabaseConfig bean = annotationConfigApplicationContext.getBean(DatabaseConfig.class);
  //       System.out.println(bean.getLogin());
@@ -64,12 +60,13 @@ public class SpringContextTester {
 //            System.out.println(beanDefinitionName);
 //        }
 
-        Cars generatedCar = annotationConfigApplicationContext.getBean(Cars.class);
-        System.out.println(generatedCar);
-
+      //  Cars generatedCar = annotationConfigApplicationContext.getBean(Cars.class);
+      //  System.out.println(generatedCar);
+//
 
         UserRepository userRepository = annotationConfigApplicationContext.getBean(UserRepository.class);
-
+       // LoggingAspect loggingAspect = annotationConfigApplicationContext.getBean(LoggingAspect.class);
+        // loggingAspect.Count();
         System.out.println(userRepository.findAll().stream().map(User::getName).collect(Collectors.joining(", ")));
     }
 }

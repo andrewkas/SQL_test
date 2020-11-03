@@ -1,12 +1,9 @@
-package com.noirix.util;
+package com.noirix.config;
 
-import com.noirix.domain.Car;
 import com.noirix.domain.Cars;
-import com.noirix.repository.impl.CarsRepositoryJdbcTemplateImpl;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -15,16 +12,16 @@ import javax.sql.DataSource;
 @Configuration
 public class ApplicationBeans {
 
-   @Bean
-   public Cars getCar() {
-       return Cars.builder()
-               .id(1L)
-               .model("Tesla Model S")
-               .price(110000D)
-               .creationYear(2019)
-               .color("red")
-               .build();
-   }
+  // @Bean
+ //public Cars getCar() {
+ //    return Cars.builder()
+ //            .id(1L)
+ //            .model("Tesla Model S")
+ //            .price(110000D)
+ //            .creationYear(2019)
+ //            .color("red")
+ //            .build();
+  // }
  //   @Bean
  //   public Cars getCar2() {
  //       return Cars.builder()
