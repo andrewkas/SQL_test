@@ -124,16 +124,15 @@ public class CarsRepositoryJdbcTemplateImpl implements CarsRepository {
 
     @Override
     public Long delete(Cars entity) {
-        final String findByIdQuery = "delete from m_cars where id = ?";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+        final String findByIdQuery = "delete from m_cars where id = :carsId";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", entity.getId());
+        params.addValue("carsId", entity.getId());
 
 
-        namedParameterJdbcTemplate.update(findByIdQuery, params, keyHolder, new String[]{"id"});
+        long deletedCarsId = namedParameterJdbcTemplate.update(findByIdQuery, params);
 
-        long deletedCarsId = Objects.requireNonNull(keyHolder.getKey()).longValue();
+
 
         return deletedCarsId;
     }

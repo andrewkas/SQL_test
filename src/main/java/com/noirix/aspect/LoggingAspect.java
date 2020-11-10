@@ -17,7 +17,7 @@ import java.util.Map;
 @Aspect
 public class LoggingAspect {
     private static final Logger log = Logger.getLogger(LoggingAspect.class);
-    public static Map<String,Integer> hashMap = new HashMap<String,Integer>();
+    private static final Map<String,Integer> hashMap = new HashMap<String,Integer>();
 
 //    @Before("aroundRepositoryPointcut()")
 //    public void logBefore(JoinPoint joinPoint) {
