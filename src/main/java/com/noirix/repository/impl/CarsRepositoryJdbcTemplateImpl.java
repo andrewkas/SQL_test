@@ -97,28 +97,26 @@ public class CarsRepositoryJdbcTemplateImpl implements CarsRepository {
     @Override
     public Cars update(Cars object) {
         final String findByIdObject = "update m_cars " +
-                "set " +
-                "model = ?,  " +
-                "creation_year = ?,  " +
-                "user_id = ?,  " +
-                "price = ?,  " +
-                "color = ?  " +
-                "where id = ?";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+                "set model = :model,  " +
+                "creation_year = :creationYaer,  " +
+                "user_id = :userID,  " +
+                "price = :price,  " +
+                "color = :color where id = :id";
+
 
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", object.getId());
+
         params.addValue("model", object.getModel());
         params.addValue("creationYear", object.getCreationYear());
         params.addValue("userId", object.getUserId());
         params.addValue("price", object.getPrice());
         params.addValue("color", object.getColor());
+        params.addValue("id", object.getId());
 
-        namedParameterJdbcTemplate.update(findByIdObject, params, keyHolder, new String[]{"id"});
+        namedParameterJdbcTemplate.update(findByIdObject, params);
 
-        long updatedCarsId = Objects.requireNonNull(keyHolder.getKey()).longValue();
 
-        return findById(updatedCarsId);
+        return object;
     }
 
 
