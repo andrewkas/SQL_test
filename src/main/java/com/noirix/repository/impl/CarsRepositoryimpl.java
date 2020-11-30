@@ -16,7 +16,7 @@ import java.util.Optional;
 import static com.noirix.repository.CarsColumns.*;
 import static com.noirix.util.DatabasePropertiesReader.*;
 
-public class CarsRepositoryimpl implements CarsRepository {
+public class CarsRepositoryimpl {}/*implements CarsRepository {
     public static final DatabasePropertiesReader reader = DatabasePropertiesReader.getInstance();
 
 
@@ -251,4 +251,5 @@ public class CarsRepositoryimpl implements CarsRepository {
             throw new RuntimeException("SQL Issues!");
         }
     }
-}
+
+*/

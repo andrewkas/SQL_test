@@ -8,10 +8,15 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @ComponentScan("com.noirix")
-public class WebBeanConfig {
+public class WebBeanConfig /*extends WebMvcConfigurerAdapter*/ {
 
-    @Bean
-    public ViewResolver viewResolver(){
-        return new InternalResourceViewResolver("/WEB-INF/jsp/", ".jsp");
-    }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/WEB-INF/jsp/**").addResourceLocations("/jsp/");
+//    }
+//
+//    @Bean
+//    public ViewResolver viewResolver() {
+//        return new InternalResourceViewResolver("/WEB-INF/jsp/", ".jsp");
+//    }
 }

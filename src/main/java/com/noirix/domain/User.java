@@ -15,6 +15,7 @@ import java.util.Date;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
     /*Here we will store PK of m_users table*/
     private Long id;
@@ -27,24 +28,24 @@ public class User {
 
     private Gender gender = Gender.NOT_SELECTED;
 
-    private Timestamp created = new Timestamp(System.currentTimeMillis());
+    private Timestamp created;
 
-    private Timestamp changed = new Timestamp(System.currentTimeMillis());
+    private Timestamp changed;
 
     private Float weight;
 
-    @Autowired
-    @Qualifier("getCar2")
-    private Car userCar;
+    private String login;
 
-    public User(Long id, String name, String surname) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
+    private String password;
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
+}
 
   //  @Override
   //  public String toString() {
   //      return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
   //  }
-}
+

@@ -1,23 +1,7 @@
 package com.noirix.controller;
 
-import com.google.gson.Gson;
-import com.noirix.controller.command.Commands;
-import com.noirix.domain.Cars;
-import com.noirix.domain.User;
-import com.noirix.repository.CarsRepository;
-import com.noirix.repository.UserRepository;
 //import com.noirix.repository.impl.CarsREpositoryimpl;
-import com.noirix.repository.impl.CarsRepositoryimpl;
-import com.noirix.repository.impl.UserRepositoryImpl;
-import org.apache.commons.io.IOUtils;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Collections;
+
 
 //@Controller
 //@RestController
@@ -28,7 +12,7 @@ import java.util.Collections;
 //@Controller
 //@RestController
 //@Bean
-public class FrontController extends HttpServlet {
+public class FrontController {} /*extends HttpServlet {
 
     public static final UserRepository userRepository = new UserRepositoryImpl();
     public static final CarsRepository carsRepository = new CarsRepositoryimpl();
@@ -153,3 +137,4 @@ public class FrontController extends HttpServlet {
         }
     }
 }
+*/
